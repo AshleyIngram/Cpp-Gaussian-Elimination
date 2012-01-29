@@ -23,9 +23,11 @@ After compilation, create an 'input.txt' file in the same directory as the execu
 
 An example of the input.txt would be
 
+'''
 3
 1 2 3 5
 0 2 4 4
 3 0 9 1
+'''
 
 
