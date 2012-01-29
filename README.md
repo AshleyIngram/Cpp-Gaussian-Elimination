@@ -30,4 +30,3 @@ An example of the input.txt would be
 3 0 9 1
 ```
 
-
