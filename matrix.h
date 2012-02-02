@@ -12,5 +12,9 @@ class Matrix
     private:
         std::vector<std::vector<double> > _matrix;
         std::vector<double> _vector;
+        bool _verbose;
+        std::vector<double> _solution;
         std::string convertIntToString(int num);
+        void triangularForm();
+        std::vector<double> backwardsSubstitution();
 };

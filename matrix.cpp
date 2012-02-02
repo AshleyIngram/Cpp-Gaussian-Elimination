@@ -74,10 +74,32 @@ string Matrix::toString()
         returnString << " | " << _vector[i] << endl;
     }
     
+    if (!_solution.empty())
+    {
+        returnString << endl << "Solution Vector: ";
+        
+        for (unsigned int i=0; i < _solution.size(); ++i)
+        {
+            returnString << _solution[i];
+            if (i != _solution.size()-1)
+                returnString << ", ";
+            else
+                cout << endl;
+        }
+        returnString << endl;
+    }
+        
     return returnString.str();
 }
 
 void Matrix::solve(bool verbose)
+{
+    _verbose = verbose;
+    triangularForm();
+    _solution = backwardsSubstitution();
+}
+
+void Matrix::triangularForm()
 {
     //Perform Gaussian elimination on the matrix and
     //return the solved system
@@ -98,10 +120,27 @@ void Matrix::solve(bool verbose)
             //elimination on the coefficient vector
             _vector[j] = _vector[j] - (_vector[i] * ratio);
             
-            if (verbose)
+            if (_verbose)
                 cout << *this << endl;
         }
    }
+}
+
+vector<double> Matrix::backwardsSubstitution()
+{
+    vector<double> rhs = vector<double>(_vector.size());
+
+    for (int i = _vector.size()-1; i > -1; --i)
+    {
+        double current = 0;
+        for (unsigned int j = i; j < _vector.size(); ++j)
+        {
+            current = current + (_matrix[i][j] * rhs[j]);
+        }
+        rhs[i] = (_vector[i] - current) / _matrix[i][i];
+    }
+        
+    return rhs;
 }
 
 
